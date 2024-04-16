@@ -17,16 +17,36 @@
     },
     {
       "fileMatch": ["/Dockerfile$"],
+      "matchStrings": [
+        "ARG HA_CLI_VERSION=[\"']?(?<currentValue>.+?)[\"']?\\s+"
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "home-assistant/cli",
+      "versioningTemplate": "loose"
+    },
+    {
+      "fileMatch": ["/Dockerfile$"],
+      "matchStrings": ["ARG TTYD_VERSION=[\"']?(?<currentValue>.+?)[\"']?\\s+"],
+      "datasourceTemplate": "github-tags",
+      "depNameTemplate": "tsl0922/ttyd"
+    },
+    {
+      "fileMatch": ["/Dockerfile$"],
       "matchStringsStrategy": "any",
       "matchStrings": [
-        "\\s\\s(?<package>[a-z0-9][a-z0-9-]+)=(?<currentValue>[a-z0-9-:_+~.]+)\\s+"
+        "\\s\\s(?<package>[a-z0-9][a-z0-9-_]+)=(?<currentValue>[a-z0-9-_.]+)\\s+"
       ],
-      "versioningTemplate": "deb",
+      "versioningTemplate": "loose",
       "datasourceTemplate": "repology",
-      "depNameTemplate": "debian_12/{{{package}}}"
+      "depNameTemplate": "alpine_3_19/{{package}}"
     }
   ],
   "packageRules": [
+    {
+      "matchDatasources": ["github-releases"],
+      "matchDepNames": ["home-assistant/cli"],
+      "automerge": true
+    },
     {
       "matchDatasources": ["repology"],
       "automerge": true
@@ -39,6 +59,34 @@
       "groupName": "Add-on base image",
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "matchManagers": ["pip_requirements"],
+      "addLabels": ["python"],
+      "rangeStrategy": "pin"
+    },
+    {
+      "matchManagers": ["pip_requirements"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "groupName": "Docker",
+      "matchDatasources": ["repology"],
+      "matchPackagePatterns": ["^alpine_.*/docker.*$"],
+      "automerge": true
+    },
+    {
+      "groupName": "OpenSSL",
+      "matchDatasources": ["repology"],
+      "matchPackagePatterns": ["^alpine_.*/openssl.*$"],
+      "automerge": true
+    },
+    {
+      "groupName": "Python",
+      "matchDatasources": ["repology"],
+      "matchPackagePatterns": ["^alpine_.*/python3(-dev)?$"],
       "automerge": true
     }
   ]
