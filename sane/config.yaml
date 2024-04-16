@@ -6,6 +6,9 @@ description: A SANE server for wireless scanning
 arch:
   - amd64
   - aarch64
+  - armhf
+  - armv7
+  - i386
 usb: true
 init: false
 homeassistant_api: true
