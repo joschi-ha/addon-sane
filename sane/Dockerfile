@@ -11,13 +11,13 @@ ENV TERM="xterm-256color"
 # Setup base
 # hadolint ignore=DL3018
 RUN apk add --no-cache \
-    nano=8.0-r0 \
-    sane=1.2.1-r0 \
-    sane-saned=1.2.1-r0 \
-    sane-utils=1.2.1-r0 \
-    sane-backend-net=1.2.1-r0 \
-    sane-backend-hpljm1005=1.2.1-r0 \ 
-    sane-backend-pixma=1.2.1-r0
+    nano=8.2-r0 \
+    sane=1.3.1-r0 \
+    sane-saned=1.3.1-r0 \
+    sane-utils=1.3.1-r0 \
+    sane-backend-net=1.3.1-r0 \
+    sane-backend-hpljm1005=1.3.1-r0 \ 
+    sane-backend-pixma=1.3.1-r0
 
 # Copy root filesystem
 COPY rootfs /
