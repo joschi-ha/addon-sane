@@ -3,6 +3,7 @@ name: SANE
 version: "dev"
 slug: sane-scanner
 description: A SANE server for wireless scanning
+url: https://github.com/joschi-ha/addon-sane
 arch:
   - amd64
   - aarch64
